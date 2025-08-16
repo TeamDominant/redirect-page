@@ -94,40 +94,46 @@
         }
         
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const currentURL = window.location.href;
-            let redirectTo = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
-            const language = navigator.language || navigator.userLanguage;
-            const isRussian = language.startsWith('ru');
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const currentURL = window.location.href;
+    let redirectTo = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
+    const language = navigator.language || navigator.userLanguage;
+    const isRussian = language.startsWith('ru');
 
-            const titleText = isRussian ? 'Продолжить' : 'Continue';
-            const buttonText = isRussian ? 'Нажмите сюда, чтобы продолжить' : 'Click here to proceed';
-            const instructionsText = isRussian 
-  ? 'Переадресация произойдёт автоматически в течение 5 секунд.\nЕсли этого не произошло, нажмите на кнопку выше.'
-  : 'You will be redirected automatically within 5 seconds.\nIf nothing happens, please click the button above.';
+    const titleText = isRussian ? 'Продолжить' : 'Continue';
+    const buttonText = isRussian ? 'Нажмите сюда, чтобы продолжить' : 'Click here to proceed';
+    const instructionsText = isRussian
+      ? 'Переадресация произойдёт автоматически в течение 5 секунд.\nЕсли этого не произошло, нажмите на кнопку выше.'
+      : 'You will be redirected automatically within 5 seconds.\nIf nothing happens, please click the button above.';
 
-            //document.getElementById('title').innerText = titleText;
-            document.getElementById('redirectLink').innerText = buttonText;
-            document.getElementById('redirectLink').href = redirectTo;
-            document.getElementById('instructions').innerText = instructionsText;
+    // document.getElementById('title').innerText = titleText;
+    const linkEl = document.getElementById('redirectLink');
+    linkEl.innerText = buttonText;
+    linkEl.href = redirectTo;
+    document.getElementById('instructions').innerText = instructionsText;
 
-            // Определяем тему
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.body.classList.add('dark');
-            } else {
-                document.body.classList.add('light');
-            }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.add('light');
+    }
 
-            if (redirectTo) {
-                setTimeout(() => {
-                    window.location.href = redirectTo;
-                }, 5000); // Автоматическое перенаправление через 5 секунд
-            } else {
-                alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
-            }
-        });
-    </script>
+    let redirectTimer;
+
+    if (redirectTo) {
+      redirectTimer = setTimeout(() => {
+        window.location.href = redirectTo;
+      }, 5000);
+
+      linkEl.addEventListener('click', function () {
+        clearTimeout(redirectTimer);
+      });
+    } else {
+      alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
+    }
+  });
+</script>
 </head>
 <body>
     <div class="container">
