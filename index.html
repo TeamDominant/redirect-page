@@ -6,11 +6,11 @@
     <title>Redirect Page</title>
     <style>
         /* Импорт шрифта */
-        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap');
 
         /* Основные стили для тела */
         body {
-            font-family: 'Ubuntu', sans-serif;
+            font-family: 'JetBrains Mono', monospace;
             margin: 0;
             padding: 0;
             display: flex;
@@ -24,14 +24,31 @@
 
         /* Светлая тема */
         body.light {
-            background-color: #F5F5F5;
-            color: #333;
+            background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #1b5e20;
         }
 
         /* Темная тема */
         body.dark {
-            background-color: #161b22;
-            color: #ddd;
+            background: linear-gradient(-45deg, #1b2e1f, #0d1f13, #0b310d, #113013);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #4f7750;
+        }
+
+        /* Анимация переливания градиента */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* Фон с текстурой */
@@ -42,20 +59,17 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('https://i.ibb.co/HqRwCSL/Pattern-Copy-1.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.2;
+            background: none;
+            opacity: 0;
             pointer-events: none;
             z-index: 1;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(129, 199, 132, 0.2);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 24px rgba(25, 26, 25, 0.3);
             backdrop-filter: blur(10px);
             max-width: 400px;
             width: 90%;
@@ -71,7 +85,7 @@
         p {
             font-size: 14px;
             margin-top: 20px;
-            color: #888;
+            color: #adadad;
         }
 
         a.button {
@@ -82,7 +96,7 @@
             border-radius: 50px;
             text-decoration: none;
             color: #ffffff;
-            background: #0b7285;
+            background: #2e7d32;
             background-size: 400% 400%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: gradientAnimation 5s ease-in-out infinite;
@@ -90,7 +104,7 @@
 
         a.button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.4);
         }
         
     </style>
