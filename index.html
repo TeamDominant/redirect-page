@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirect Page</title>
     <style>
-        /* Импорт шрифта */
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap');
+        /* Импорт шрифта JetBrains Mono */
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
         /* Основные стили для тела */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'JetBrains Mono', monospace;
             margin: 0;
@@ -20,95 +26,484 @@
             text-align: center;
             overflow: hidden;
             transition: background-color 0.3s, color 0.3s;
+            position: relative;
         }
 
-        /* Светлая тема */
+        /* Светлая тема - Nothing Style */
         body.light {
-            background: linear-gradient(-45deg, #e8f5e9, #c8e6c9, #a5d6a7, #81c784);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            color: #1b5e20;
+            background: #FFFFFF;
+            color: #000000;
         }
 
-        /* Темная тема */
+        /* Темная тема - Nothing Style */
         body.dark {
-            background: linear-gradient(-45deg, #1b2e1f, #0d1f13, #0b310d, #113013);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            color: #4f7750;
+            background: #000000;
+            color: #FFFFFF;
         }
 
-        /* Анимация переливания градиента */
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Фон с текстурой */
-        body::after {
+        /* Dot Matrix Pattern Background */
+        body::before {
             content: '';
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: none;
-            opacity: 0;
+            background-image: radial-gradient(circle, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        /* Glyph Interface Elements */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            opacity: 0.2;
             pointer-events: none;
             z-index: 1;
         }
 
         .container {
-            background: rgba(129, 199, 132, 0.2);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 24px rgba(25, 26, 25, 0.3);
-            backdrop-filter: blur(10px);
-            max-width: 400px;
+            background: transparent;
+            padding: 60px 40px;
+            border: 1px solid;
+            max-width: 480px;
             width: 90%;
             position: relative;
             z-index: 2;
+            transition: border-color 0.3s;
+        }
+
+        body.light .container {
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark .container {
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         h1 {
             font-size: 24px;
             margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
         p {
             font-size: 14px;
-            margin-top: 20px;
-            color: #adadad;
+            margin-top: 32px;
+            opacity: 0.6;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
         }
 
+        /* Nothing Signature Red Button */
         a.button {
             display: inline-block;
-            padding: 15px 30px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 50px;
+            padding: 18px 48px;
+            font-size: 16px;
+            font-weight: 500;
             text-decoration: none;
-            color: #ffffff;
-            background: #2e7d32;
-            background-size: 400% 400%;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: gradientAnimation 5s ease-in-out infinite;
+            color: #FFFFFF;
+            background: #FF3B30;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: -0.01em;
+            border: none;
+        }
+
+        a.button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        a.button:hover::before {
+            opacity: 1;
         }
 
         a.button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 59, 48, 0.3);
+        }
+
+        a.button:active {
+            transform: translateY(0);
+        }
+
+        /* Red accent dot */
+        .red-dot {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 8px;
+            height: 8px;
+            background: #FF3B30;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Minimalist loading indicator */
+        .loading-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: #FF3B30;
+            width: 0;
+            animation: loadProgress 5s linear;
+        }
+
+        @keyframes loadProgress {
+            from {
+                width: 0%;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        /* Moving geometric structures */
+        .bg-structures {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Orbital rings */
+        .orbit-ring {
+            position: absolute;
+            border: 1px solid;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        body.light .orbit-ring {
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .orbit-ring {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .orbit-1 {
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate-orbit 40s linear infinite;
+        }
+
+        .orbit-2 {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate-orbit 30s linear infinite reverse;
+        }
+
+        .orbit-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate-orbit 25s linear infinite;
+        }
+
+        /* Floating particles/dots */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        body.light .particle {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark .particle {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .particle-1 {
+            top: 20%;
+            left: 15%;
+            animation: float-particle 15s ease-in-out infinite;
+        }
+
+        .particle-2 {
+            top: 70%;
+            right: 20%;
+            animation: float-particle 18s ease-in-out infinite 2s;
+        }
+
+        .particle-3 {
+            bottom: 25%;
+            left: 25%;
+            animation: float-particle 20s ease-in-out infinite 4s;
+        }
+
+        .particle-4 {
+            top: 40%;
+            right: 10%;
+            animation: float-particle 16s ease-in-out infinite 1s;
+        }
+
+        .particle-5 {
+            top: 15%;
+            right: 30%;
+            animation: float-particle 22s ease-in-out infinite 3s;
+        }
+
+        /* Red accent particles */
+        .particle-red {
+            background: #FF3B30 !important;
+            opacity: 0.5;
+            animation: pulse-particle 3s ease-in-out infinite;
+        }
+
+        .particle-red-1 {
+            top: 30%;
+            left: 20%;
+        }
+
+        .particle-red-2 {
+            bottom: 30%;
+            right: 25%;
+            animation-delay: 1.5s;
+        }
+
+        /* Curved lines */
+        .curve-line {
+            position: absolute;
+            opacity: 0.2;
+            stroke-width: 1;
+        }
+
+        body.light .curve-line {
+            stroke: rgba(0, 0, 0, 0.3);
+            fill: none;
+        }
+
+        body.dark .curve-line {
+            stroke: rgba(255, 255, 255, 0.3);
+            fill: none;
+        }
+
+        .curve-1 {
+            top: 10%;
+            left: 0;
+            width: 300px;
+            height: 200px;
+            animation: fade-in-out 8s ease-in-out infinite;
+        }
+
+        .curve-2 {
+            bottom: 10%;
+            right: 0;
+            width: 350px;
+            height: 250px;
+            animation: fade-in-out 10s ease-in-out infinite 2s;
+        }
+
+        /* Animations */
+        @keyframes rotate-orbit {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translate(0, 0);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translate(30px, -30px);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-20px, 40px);
+                opacity: 0.3;
+            }
+            75% {
+                transform: translate(40px, 20px);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes pulse-particle {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fade-in-out {
+            0%, 100% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Typing text animation */
+        .typing-text {
+            position: absolute;
+            font-size: 16px;
+            font-weight: 400;
+            font-family: 'JetBrains Mono', monospace;
+            opacity: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            pointer-events: none;
+            letter-spacing: 0.05em;
+        }
+
+        body.light .typing-text {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .typing-text {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .typing-text::after {
+            content: '|';
+            animation: blink-cursor 0.7s infinite;
+        }
+
+        @keyframes blink-cursor {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0;
+            }
         }
         
     </style>
 <script>
+  // Typing text animation
+  const typingPhrases = [
+    'Nothing to see here...',
+    'Nothing is something...',
+    'Redirecting...',
+    'Nothing is a state of mind...',
+    'Nothing is more powerful than you know...',
+    'Design Matters',
+    'Back to Instinct',
+    'Pure Technology'
+  ];
+
+  let currentPhraseIndex = 0;
+  let typingElement = null;
+
+  function createTypingElement() {
+    if (typingElement) {
+      typingElement.remove();
+    }
+
+    typingElement = document.createElement('div');
+    typingElement.className = 'typing-text';
+    
+    // Random position (closer to middle area)
+    const positions = [
+      { top: '30%', left: '20%' },
+      { top: '35%', right: '22%' },
+      { bottom: '35%', left: '18%' },
+      { bottom: '32%', right: '25%' },
+      { top: '55%', left: '15%' },
+      { top: '40%', left: '65%' },
+      { bottom: '45%', right: '18%' },
+      { top: '60%', right: '60%' }
+    ];
+    
+    const randomPos = positions[Math.floor(Math.random() * positions.length)];
+    Object.assign(typingElement.style, randomPos);
+    
+    document.querySelector('.bg-structures').appendChild(typingElement);
+    
+    typeText();
+  }
+
+  function typeText() {
+    const phrase = typingPhrases[currentPhraseIndex];
+    let charIndex = 0;
+    
+    typingElement.style.opacity = '1';
+    typingElement.textContent = '';
+    
+    const typingInterval = setInterval(() => {
+      if (charIndex < phrase.length) {
+        typingElement.textContent = phrase.substring(0, charIndex + 1);
+        charIndex++;
+      } else {
+        clearInterval(typingInterval);
+        // Wait a bit, then fade out
+        setTimeout(() => {
+          fadeOutAndReposition();
+        }, 2000);
+      }
+    }, 80);
+  }
+
+  function fadeOutAndReposition() {
+    typingElement.style.transition = 'opacity 1s ease-out';
+    typingElement.style.opacity = '0';
+    
+    setTimeout(() => {
+      currentPhraseIndex = (currentPhraseIndex + 1) % typingPhrases.length;
+      createTypingElement();
+    }, 1000);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     const currentURL = window.location.href;
     let redirectTo = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
@@ -146,11 +541,46 @@
     } else {
       alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
     }
+
+    // Start typing text animation
+    setTimeout(() => {
+      createTypingElement();
+    }, 500);
   });
 </script>
 </head>
 <body>
+    <!-- Elegant background elements -->
+    <div class="bg-structures">
+        <!-- Rotating orbital rings -->
+        <div class="orbit-ring orbit-1"></div>
+        <div class="orbit-ring orbit-2"></div>
+        <div class="orbit-ring orbit-3"></div>
+        
+        <!-- Floating particles -->
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
+        
+        <!-- Red accent particles -->
+        <div class="particle particle-red particle-red-1"></div>
+        <div class="particle particle-red particle-red-2"></div>
+        
+        <!-- Curved lines -->
+        <svg class="curve-line curve-1" viewBox="0 0 300 200" preserveAspectRatio="none">
+            <path d="M 0,100 Q 75,20 150,100 T 300,100" />
+        </svg>
+        
+        <svg class="curve-line curve-2" viewBox="0 0 350 250" preserveAspectRatio="none">
+            <path d="M 0,125 Q 87,200 175,125 T 350,125" />
+        </svg>
+    </div>
+
     <div class="container">
+        <div class="red-dot"></div>
+        <div class="loading-bar"></div>
         <!-- <h1 id="title">Continue</h1> -->
         <a id="redirectLink" class="button" href="#" target="_blank">Click here to proceed</a>
         <p id="instructions">To continue, please click the button above.</p>
